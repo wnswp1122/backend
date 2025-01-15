@@ -1,6 +1,10 @@
 function checkPhone(number){
     if(number.length < 10 || number.length > 11){
        console.log("error! 핸드폰 번호를 제대로 입력해 주세요!!"); //early-exit 패턴
+       return false;
+    }
+    else{
+        return true;
     }
 }
 
@@ -15,13 +19,13 @@ function sendTokenToSMS(number,result){
 
 
 
-function createToken(number){ 
-    if(number.length < 10 || number.length > 11){
-        checkPhone(number);
-    }
-    else{
-        sendTokenToSMS(number,getToken());
-    }
+function createToken(number){
+    const isValid = checkPhone(number);
+    if(isValid === false) return
+
+    const token = getToken();
+
+    sendTokenToSMS(number,token);
 
 }
 
